@@ -17,12 +17,14 @@ Encore
     .addStyleEntry('global', './assets/css/global.scss')
 
     // allow sass/scss files to be processed
-    .enableSassLoader()
+    .enableSassLoader(function (sassOptions) {}, {resolve_url_loader: false})
 
     // allow legacy applications to use $/jQuery as a global variable
     .autoProvidejQuery()
 
     .enableSourceMaps(!Encore.isProduction())
+
+    .autoProvidejQuery()
 
 // create hashed filenames (e.g. app.abc123.css)
 // .enableVersioning()
