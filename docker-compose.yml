@@ -1,0 +1,28 @@
+version: '2'
+services:
+  mysql:
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    image: mysql:5.5
+    ports:
+      - 13306:3306
+    restart: always
+    volumes:
+      - "~/Sites/sumocoders/docker/mysql55:/var/lib/mysql"
+
+  web:
+    image: sumocoders/framework-php71:latest
+    depends_on:
+      - mysql
+    environment:
+      - SYMFONY_ENV=dev
+      - SYMFONY_DEBUG=1
+      - XDEBUG_CONFIG=remote_host=${EN0IP}
+    links:
+      - mysql
+    ports:
+      - "8080:80"
+    restart: always
+    volumes:
+      - ./:/var/www/html:cached
+      - ~/.ssh/:/var/www/.ssh:ro
